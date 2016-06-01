@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     int j = 0;//录入文件数据到全局数组的时候控制数据个数
     int index = 0;//控制全局数组的角标
     Button button,button2;
-    int constNum = 100;//控制整个屏幕的x数据宽度
+    int constNum = 150;//控制整个屏幕的x数据宽度
     private Timer timer = new Timer();//计时器
     private GraphicalView chart;
     private TimerTask task;
@@ -67,7 +67,6 @@ public class MainActivity extends Activity {
         setchart();
     }//重启线程函数（实际和setchart同样）
     private void updateChart() {
-        //设定长度为20
         int length = series.getItemCount();
         if(length>=constNum) length = constNum;
         addY = 10*EEGdate[index++];
@@ -148,12 +147,12 @@ public class MainActivity extends Activity {
     }//渲染器的初始化
     private XYMultipleSeriesDataset getDateDemoDataset() {
         dataset = new XYMultipleSeriesDataset();
-        final int nr = 100;
+        final int nr = 150;
         long value = new Date().getTime();
         series = new TimeSeries("ECG Series");
         for (int k = 0; k < nr; k++) {
 //            series.add(new Date(value+k*10),EEGdate[index++]*10);
-            series.add(new Date(value+k*10),0);
+            series.add(new Date(value+k*10),0);//初始设置为水平线0
 
         }
         dataset.addSeries(series);
@@ -163,8 +162,8 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String line = ReadSDFile("/mnt/sdcard/Download/nsrdb-16273.txt");//模拟器文件地址
-//        String line = ReadSDFile("/storage/emulated/0/nsrdb-16273.txt");//手机文件地址
+//        String line = ReadSDFile("/mnt/sdcard/Download/nsrdb-16273.txt");//模拟器文件地址
+        String line = ReadSDFile("/storage/emulated/0/nsrdb-16273.txt");//手机文件地址
         String[] arry = line.split("\\s+");
         Dateimport(arry);
         button = (Button) findViewById(R.id.mtbyn);
